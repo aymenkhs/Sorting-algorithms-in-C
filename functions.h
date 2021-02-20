@@ -1,5 +1,5 @@
-#ifndef table_creation
-#define table_creation
+#ifndef base
+#define base
 
 // time measurement functions
 double * tab_execution(int * (* function)(long), long * tab1);
@@ -13,4 +13,4 @@ long * generer_random(long n);
 // ecrire les resultats dans un fichier csv
 writeCSV(int * tab1, double * results_part1, double * results_part2, double * results_part3)
 
-#endif // table_creation
+#endif // base

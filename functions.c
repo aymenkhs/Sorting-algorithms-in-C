@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "table_creation.h"
+#include "functions.h"
 
 
 //  Fonction  qui  prend en parametre une fonction est un tebleau d'entier n et qui retourne le temps d'execution de chaque n dans un autre tableau
@@ -61,7 +61,7 @@ int writeCSV(int * tab1, double * results_part1, double * results_part2, double 
     for(int i=0; i<12; i++){
         fprintf(fp,"\n%d,%.10lf,%.10lf,%.10lf", tab1[i], results_part1[i], results_part2[i], results_part3[i]);
     }
-    
+
     fclose(fp);
 
     return 1;
