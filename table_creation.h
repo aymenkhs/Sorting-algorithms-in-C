@@ -10,4 +10,7 @@ long * generer_bon_ordre(long n);
 long * generer_ordre_dinverse(long n);
 long * generer_random(long n);
 
+// ecrire les resultats dans un fichier csv
+writeCSV(int * tab1, double * results_part1, double * results_part2, double * results_part3)
+
 #endif // table_creation

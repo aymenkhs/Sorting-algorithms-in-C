@@ -45,3 +45,24 @@ long * generer_ordre_dinverse(long n){
 long * generer_random(long n){
 
 }
+
+// fonction qui ecris dans un fichier csv les resultats des mesures de temps
+int writeCSV(int * tab1, double * results_part1, double * results_part2, double * results_part3){
+
+    FILE* fp = NULL;
+    fp=fopen("mini_projet.csv","w+");
+
+    if (fp == NULL){
+        return 0;
+    }
+
+    // this was a tp 2 part I'll change it to mach with our project
+    fprintf(fp,"nb,T_part1,T_part2,T_part3");
+    for(int i=0; i<12; i++){
+        fprintf(fp,"\n%d,%.10lf,%.10lf,%.10lf", tab1[i], results_part1[i], results_part2[i], results_part3[i]);
+    }
+    
+    fclose(fp);
+
+    return 1;
+}
