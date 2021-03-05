@@ -32,19 +32,33 @@ double execution_time(int * (* function)(long), long n){
 
 // fonction qui genere un tableau d'entiers de taille n deja trier en ordre croissant
 long * generer_bon_ordre(long n){
-
+    long *tab = malloc(n * sizeof(long));
+    for(int i=0; i<n; i++){
+        tab[i] = i+1;
+    }
+    return tab;
 }
 
 
 // fonction qui genere un tableau d'entiers de taille n trier en ordre inverse (decroissant)
-long * generer_ordre_dinverse(long n){
-
+long * generer_ordre_inverse(long n){
+    long *tab = malloc(n * sizeof(long));
+    for(int i=0; i<n; i++){
+        tab[i] = n-i;
+    }
+    return tab;
 }
 
 
 // fonction qui genere un tableau d'entiers de taille n aleatoire
 long * generer_random(long n){
-
+    long random_number;
+    long *tab = malloc(n * sizeof(long));
+    for(int i=0; i<n; i++){
+        random_number = rand() % 1000000;
+        tab[i] = random_number;
+    }
+    return tab;
 }
 
 // fonction qui ecris dans un fichier csv les resultats des mesures de temps
