@@ -7,23 +7,36 @@
 
 
 //  Fonction  qui  prend en parametre une fonction est un tebleau d'entier n et qui retourne le temps d'execution de chaque n dans un autre tableau
-double * tab_execution(int * (* function)(long), long * tab1){
+StoreTime * tab_execution(int * (* function)(long*, long), long * tab, int taille){
 
-    double *tab2 = malloc(12 * sizeof(double));
+    long *ordered_tab, *inverse_tab, *random_tab;
+    StoreTime *results = malloc(taille * sizeof(StoreTime));
 
-    for(int i=0; i<12; i++){
-        tab2[i] = execution_time(function, tab1[i]);
+    for(int i=0; i<taille; i++){
+        results[i].num = tab[i];
+
+        ordered_tab = generer_bon_ordre(tab[i]);
+        results[i].time_ordered = execution_time(function, ordered_tab, taille);
+
+        inverse_tab = generer_ordre_inverse(tab[i]);
+        results[i].time_inverse = execution_time(function, inverse_tab, taille);
+
+        random_tab = generer_random(tab[i]);
+        results[i].time_random = execution_time(function, random_tab, taille);
+
+        free(ordered_tab);
+        free(inverse_tab);
+        free(random_tab);
     }
-
-    return tab2;
+    return results;
 }
 
 //  Fonction  qui  retourne  le  temps d’execution de la fonction donner en parametre
-double execution_time(int * (* function)(long), long n){
+double execution_time(int * (* function)(long*, long), long * tab, long n){
     clock_t t1 , t2;
 
     t1 = clock ();
-    function(n);
+    function(tab, n);
     t2 = clock ();
 
     double temps_exe = (double) (t2 -t1)/CLOCKS_PER_SEC;
@@ -55,7 +68,7 @@ long * generer_random(long n){
     long random_number;
     long *tab = malloc(n * sizeof(long));
     for(int i=0; i<n; i++){
-        random_number = rand() % 1000000;
+        random_number = rand() % n;
         tab[i] = random_number;
     }
     return tab;
@@ -65,10 +78,13 @@ long * generer_random(long n){
 int writeCSV(char * algorithm ,StoreTime * results, int taille){
 
     FILE* fp = NULL;
-    char * file_name = strcat(algorithm, ".csv");
+    char * file_name = malloc((15 + strlen(algorithm)) * sizeof(char));
+
+    sprintf(file_name, "results/%s.csv", algorithm);
     fp=fopen(file_name,"w+");
 
     if (fp == NULL){
+        printf("wellll");
         return 0;
     }
 

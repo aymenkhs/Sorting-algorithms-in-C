@@ -13,23 +13,13 @@
 int main(){
     srand(time(NULL));
 
-    long * tab = generer_bon_ordre(10);
-    for(int i=0; i<10; i++){
-        printf("%d ", tab[i]);
-    }
-    printf("\n");
+    int (* fonctions [1])(long*, long) = {heapSort};
 
-    tab = generer_ordre_inverse(10);
-    for(int i=0; i<10; i++){
-        printf("%d ", tab[i]);
-    }
-    printf("\n");
+    long tab[6] = {10, 100};
 
-    tab = generer_random(10);
-    for(int i=0; i<10; i++){
-        printf("%d ", tab[i]);
-    }
-    printf("\n");
+    StoreTime *results = tab_execution(fonctions[0], tab, 2);
+
+    writeCSV("heapSort", results, 2);
 
     return EXIT_SUCCESS;
 }

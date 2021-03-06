@@ -12,8 +12,8 @@ struct StoreTime
 };
 
 // time measurement functions
-double * tab_execution(int * (* function)(long), long * tab1);
-double execution_time(int * (* function)(long), long n);
+StoreTime * tab_execution(int * (* function)(long*, long), long * tab, int taille);
+double execution_time(int * (* function)(long*, long), long * tab, long n);
 
 // tables generation
 long * generer_bon_ordre(long n);
