@@ -57,3 +57,5 @@ dkms.conf
 #code blocks files
 *.cbp
 *.layout
+bin/
+obj/
