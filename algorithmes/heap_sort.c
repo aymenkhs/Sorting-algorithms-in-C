@@ -4,7 +4,16 @@
 #include "heap_sort.h"
 
 long * heapSort(long * table, long taille){
+
+    long x;
+
     heapCreation(table, taille);
+    for(long i = taille-1; i>0; i--){
+        x = table[i];
+        table[i] = table[0];
+        table[0] = x;
+        entasser(table, i, 0);
+    }
     return table;
 }
 
@@ -18,7 +27,6 @@ long * heapCreation(long * table, long taille){
 long * entasser(long * tab, long taille, long i){
     long imax = -1;
     long left_son = (2*i) + 1, right_son = (2*i) + 2;
-    printf("%d %d lft %d %d rght %d %d\n", i, tab[i], left_son, tab[left_son], right_son, tab[right_son]);
     if(left_son < taille){ // in this case tab[i] isn't a leaf
         if(right_son < taille){ // we see if the tab[i] has a right child
             // in this case the the node have a right and left child
