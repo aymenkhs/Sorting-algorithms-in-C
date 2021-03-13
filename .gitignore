@@ -60,3 +60,6 @@ dkms.conf
 *.depend
 bin/
 obj/
+
+# additional files
+test_main.c
