@@ -10,7 +10,6 @@ void Fusion(long * tab, long debut, long m, long fin)
         i = debut;
         j = m+1;
         k = 0;
-        if(debut != fin){
         while (i <= m && j <= fin)
         { if (tab[i] <= tab[j])
             { T2[k] = tab[i];
@@ -36,12 +35,12 @@ void Fusion(long * tab, long debut, long m, long fin)
             k++;
         }
         k=0;
-		    for(int i=debut; i<=fin; i++)
+        for(int i=debut; i<=fin; i++)
            {
             tab[i]=T2[k];
             k++;
-		       } 
-		        }
+           } 
+		        
     }
 
 void Tri_fusion(long * T, long debut ,long fin)
