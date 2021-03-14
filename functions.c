@@ -81,10 +81,10 @@ int writeCSV(char * algorithm ,StoreTime * results, int taille){
     char * file_name = malloc((15 + strlen(algorithm)) * sizeof(char));
 
     sprintf(file_name, "results/%s.csv", algorithm);
-    fp=fopen(file_name,"w+");
+    fp= fopen(file_name,"w+");
 
     if (fp == NULL){
-        printf("wellll");
+        printf("Fichier inexistant\n");
         return 0;
     }
 

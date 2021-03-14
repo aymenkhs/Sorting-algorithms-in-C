@@ -13,13 +13,32 @@
 int main(){
     srand(time(NULL));
 
-    int (* fonctions [1])(long*, long) = {heapSort};
+    char function_names[2][20] = { "Heap sort", "Quick sort" };
+
+    int (* fonctions [2])(long*, long) = {heapSort, quickSort};
 
     long tab[6] = {10, 100};
 
-    StoreTime *results = tab_execution(fonctions[0], tab, 2);
+    
 
-    writeCSV("heapSort", results, 2);
+    
+
+
+    for (int i = 0; i < 2; i++) {
+
+        printf("%s started.\n", function_names[i]);
+
+        StoreTime* results = tab_execution(fonctions[i], tab, 2);
+
+        writeCSV(function_names[i], results, 2);
+
+        printf("%s done.\n\n", function_names[i]);
+
+    }
+
+    
+
+    
 
     return EXIT_SUCCESS;
 }
