@@ -23,4 +23,7 @@ long * generer_random(long n);
 // ecrire les resultats dans un fichier csv
 int writeCSV(char * algorithm ,StoreTime * results, int taille);
 
+// generer les tableau des valleurs
+long * generer_tailles_tableaux(long debut, long fin, int * taille);
+
 #endif // base

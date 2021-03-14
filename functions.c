@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 #include "functions.h"
 
@@ -14,18 +15,18 @@ StoreTime * tab_execution(int * (* function)(long*, long), long * tab, int taill
 
     for(int i=0; i<taille; i++){
         results[i].num = tab[i];
+        printf("nombre %d\n\n", results[i].num);
 
         ordered_tab = generer_bon_ordre(tab[i]);
         results[i].time_ordered = execution_time(function, ordered_tab, taille);
+        free(ordered_tab);
 
         inverse_tab = generer_ordre_inverse(tab[i]);
         results[i].time_inverse = execution_time(function, inverse_tab, taille);
+        free(inverse_tab);
 
         random_tab = generer_random(tab[i]);
         results[i].time_random = execution_time(function, random_tab, taille);
-
-        free(ordered_tab);
-        free(inverse_tab);
         free(random_tab);
     }
     return results;
@@ -97,4 +98,25 @@ int writeCSV(char * algorithm ,StoreTime * results, int taille){
     fclose(fp);
 
     return 1;
+}
+
+long * generer_tailles_tableaux(long debut, long fin, int *taille){
+    *taille = (int) (log((fin / debut)) / log(2) + 2) ;
+    long *tab = malloc((*taille) * sizeof(long));
+
+    long value = debut;
+    int i = 0;
+    while(value<=fin){
+        tab[i] = value;
+        value*=2;
+        i++;
+    }
+    return tab;
+}
+
+void print_tab(long * tab, long n){
+    for(int i=0; i<n; i++){
+        printf("%d ", tab[i]);
+    }
+    printf("\n\n\n");
 }

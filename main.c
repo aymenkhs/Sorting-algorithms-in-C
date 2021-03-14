@@ -13,13 +13,17 @@
 int main(){
     srand(time(NULL));
 
-    int (* fonctions [1])(long*, long) = {heapSort};
+    long *tab = NULL;
+    long debut = 50000, fin = 204800000;
+    int taille;
 
-    long tab[6] = {10, 100};
+    int (* fonctions [5])(long*, long) = {insertionSort, bubbleSort, mergeSort, quickSort, heapSort};
 
-    StoreTime *results = tab_execution(fonctions[0], tab, 2);
+    tab = generer_tailles_tableaux(debut, fin, &taille);
 
-    writeCSV("heapSort", results, 2);
+    StoreTime *results = tab_execution(fonctions[4], tab, taille);
+
+    writeCSV("heapSort", results, taille);
 
     return EXIT_SUCCESS;
 }
