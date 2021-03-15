@@ -13,32 +13,26 @@
 int main(){
     srand(time(NULL));
 
-    char function_names[2][20] = { "Heap sort", "Quick sort" };
+    char function_names[5][20] = {"Insertion Sort", "Bubble Sort", "Merge Sort", "Quick sort", "Heap sort"};
 
-    int (* fonctions [2])(long*, long) = {heapSort, quickSort};
+    int (* fonctions [5])(long*, long) = {insertionSort, bubbleSort, mergeSort, quickSort, heapSort};
 
-    long tab[6] = {10, 100};
-
+    long *tab = NULL;
+    long debut = 50000, fin = 204800000;
+    int taille;
+    tab = generer_tailles_tableaux(debut, fin, &taille);
     
-
-    
-
-
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
 
         printf("%s started.\n", function_names[i]);
 
-        StoreTime* results = tab_execution(fonctions[i], tab, 2);
+        StoreTime* results = tab_execution(fonctions[i], tab, taille);
 
-        writeCSV(function_names[i], results, 2);
+        writeCSV(function_names[i], results, taille);
 
         printf("%s done.\n\n", function_names[i]);
 
     }
-
-    
-
-    
 
     return EXIT_SUCCESS;
 }
