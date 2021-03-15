@@ -101,7 +101,7 @@ int writeCSV(char * algorithm ,StoreTime * results, int taille){
 }
 
 long * generer_tailles_tableaux(long debut, long fin, int *taille){
-    *taille = (int) (log((fin / debut)) / log(2) + 2) ;
+    *taille = (int) (log((fin / debut)) / log(2) + 1) ;
     long *tab = malloc((*taille) * sizeof(long));
 
     long value = debut;
