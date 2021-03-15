@@ -53,6 +53,10 @@ dkms.conf
 
 # VSCode Files
 .vscode/
+Debug/
+Release/
+*.vcxproj*
+x64/
 
 #code blocks files
 *.cbp
@@ -60,6 +64,7 @@ dkms.conf
 *.depend
 bin/
 obj/
+
 
 # additional files
 test_main.c
