@@ -18,15 +18,15 @@ StoreTime * tab_execution(int * (* function)(long*, long), long * tab, int taill
         printf("nombre %d\n\n", results[i].num);
 
         ordered_tab = generer_bon_ordre(tab[i]);
-        results[i].time_ordered = execution_time(function, ordered_tab, taille);
+        results[i].time_ordered = execution_time(function, ordered_tab, tab[i]);
         free(ordered_tab);
 
         inverse_tab = generer_ordre_inverse(tab[i]);
-        results[i].time_inverse = execution_time(function, inverse_tab, taille);
+        results[i].time_inverse = execution_time(function, inverse_tab, tab[i]);
         free(inverse_tab);
 
         random_tab = generer_random(tab[i]);
-        results[i].time_random = execution_time(function, random_tab, taille);
+        results[i].time_random = execution_time(function, random_tab, tab[i]);
         free(random_tab);
     }
     return results;
