@@ -22,6 +22,22 @@ sorting_names = {
     "heap": ("Heap Sort", "Tri par tas"),
 }
 
+best_cases = {
+    "insertion": lambda x: (6 * x) - 6,
+    "bubbles": lambda x: x,
+    "merge": lambda x: x,
+    "quick": lambda x: x,
+    "heap": lambda x: x,
+}
+
+worst_cases = {
+    "insertion": lambda x: (x * (x - 1)) / 2,
+    "bubbles": lambda x: x,
+    "merge": lambda x: x,
+    "quick": lambda x: x,
+    "heap": lambda x: x,
+}
+
 def create_hue_data(initial_data, fusion=3):
     hue_data = pd.DataFrame(columns = ["n", "Partie", "temps d'execution"])
     hue_data["n"] = initial_data["num"].tolist() * fusion
@@ -33,7 +49,7 @@ def create_hue_data(initial_data, fusion=3):
     return hue_data
 
 
-def graph_langage(data, type, langage, min_values, max_values):
+def graph_langage(data, type, langage, min_values=50000, max_values=204800000):
     hue_data = create_hue_data(data)
     ax =  sns.lineplot(data=hue_data, x="n", y="temps d'execution", hue="Partie")
     ax.legend(["données deja ordonner", "données ordre inverse", "données aleatoires"])
@@ -45,11 +61,32 @@ def graph_langage(data, type, langage, min_values, max_values):
     plt.close()
 
 
+def graph_function(list_values, type):
+    best_case_values = [best_cases[type](value) for value in list_values]
+    ax =  sns.lineplot(x=list_values, y=best_case_values)
+    ax.legend(["ctm(n)"])
+    ax.set(xlabel='n', ylabel='nombre d\'iterations', title='Gm {}'.format(sorting_names[type][1]))
+    plt.tight_layout()
+    file_save_path = os.path.join("graphs" ,"ctm_{}.png".format(sorting_names[type][0]))
+    plt.savefig(file_save_path)
+    plt.close()
+
+    worst_case_values = [worst_cases[type](value) for value in list_values]
+    ax =  sns.lineplot(x=list_values, y=worst_case_values)
+    ax.legend(["ctp(n)"])
+    ax.set(xlabel='n', ylabel='nombre d\'iterations', title='Gp {}'.format(sorting_names[type][1]))
+    plt.tight_layout()
+    file_save_path = os.path.join("graphs" ,"ctp_{}.png".format(sorting_names[type][0]))
+    plt.savefig(file_save_path)
+    plt.close()
+
+
 def main():
     for sorting_name in sorting_names:
         # reading data
         c_values = pd.read_csv("{}.csv".format(sorting_names[sorting_name][0]))
-        graph_langage(c_values, sorting_name, "C", 50000, 204800000)
+        graph_langage(c_values, sorting_name, "C")
+        graph_function(c_values["num"].tolist(), sorting_name)
 
 if __name__ == '__main__':
     main()
