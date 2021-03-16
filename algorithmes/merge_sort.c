@@ -9,7 +9,7 @@ void mergeSort(long * table, long taille){
     table, 0 et taille
     dans le but de garder un "main" plus propre
     */
-    Tri_fusion(table, 0, taille);
+    Tri_fusion(table, 0, taille-1);
 }
 
 void Fusion(long * tab, long debut, long m, long fin)
