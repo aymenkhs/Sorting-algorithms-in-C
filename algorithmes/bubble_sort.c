@@ -8,10 +8,10 @@ void bubbleSort(long * table, long taille){
 	float x;
 	for(i=taille;i>2;i--){
 		for(j=1;j<i-1;j++){
-			if(T[j] > T[j+1] ){
-				x = Table[j];
-				Table[j] = Table[j+1] ;
-				Table[j+1] = x ;
+			if(table[j] > table[j+1] ){
+				x = table[j];
+				table[j] = table[j+1] ;
+				table[j+1] = x ;
 			}
 		}		
 	}  
