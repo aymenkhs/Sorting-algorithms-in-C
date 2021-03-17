@@ -27,7 +27,7 @@ best_cases = {
     "bubbles": lambda x: x,
     "merge": lambda x: x,
     "quick": lambda x: x,
-    "heap": lambda x: x,
+    "heap": lambda x: x * (17 * math.log2(x) - 1),
 }
 
 worst_cases = {
@@ -35,7 +35,7 @@ worst_cases = {
     "bubbles": lambda x: x,
     "merge": lambda x: x,
     "quick": lambda x: x,
-    "heap": lambda x: x,
+    "heap": lambda x: (3 * x * (17 * math.log2(x) - 1)) / 2,
 }
 
 def create_hue_data(initial_data, fusion=3):
@@ -49,7 +49,7 @@ def create_hue_data(initial_data, fusion=3):
     return hue_data
 
 
-def graph_langage(data, type, langage, min_values=50000, max_values=204800000):
+def graph_langage(data, type, langage, min_values=500, max_values=2048000):
     hue_data = create_hue_data(data)
     ax =  sns.lineplot(data=hue_data, x="n", y="temps d'execution", hue="Partie")
     ax.legend(["données deja ordonner", "données ordre inverse", "données aleatoires"])

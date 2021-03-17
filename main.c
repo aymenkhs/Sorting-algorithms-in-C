@@ -18,10 +18,10 @@ int main(){
     int (* fonctions [5])(long*, long) = {insertionSort, bubbleSort, mergeSort, quickSort, heapSort};
 
     long *tab = NULL;
-    long debut = 50000, fin = 204800000;
+    long debut = 500, fin = 2048000;
     int taille;
     tab = generer_tailles_tableaux(debut, fin, &taille);
-    
+
     for (int i = 0; i < 5; i++) {
 
         printf("%s started.\n", function_names[i]);
