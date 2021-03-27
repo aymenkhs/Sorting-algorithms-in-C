@@ -38,6 +38,34 @@ worst_cases = {
     "heap": lambda x: (3 * x * (17 * math.log2(x) - 1)) / 2,
 }
 
+
+def fusion_graphs(type , title , filename, fusion_dict, theorique=False):
+    hue_data = pd.DataFrame(columns = ["n", "algorithm", "temps d'execution"])
+    hue_data["n"] = fusion_dict["insertion"]["num"].tolist() * 5
+
+    temps_list = []
+    for i in fusion_dict:
+        temps_list += fusion_dict[i][type].tolist()
+    hue_data["temps d'execution"] = temps_list
+
+    hue_data["algorithm"] = ["Tri Par insertion"] * 13 + ["Tri à bulles"] * 13\
+        + ["Tri Fusion"] * 13 + ["Tri Rapide"] * 13 + ["Tri Par Tas"] * 13
+
+    ax = sns.lineplot(data=hue_data, x="n", y="temps d'execution", hue="algorithm", style="algorithm")
+    ax.legend(["Tri Par insertion", "Tri à bulles", "Tri Fusion", "Tri Rapide", "Tri Par Tas"])
+
+    if theorique:
+        ylabel = "nombre d'iterations"
+    else:
+        ylabel = "Temps d'execution en secondes"
+
+    ax.set(xlabel='n', ylabel=ylabel, title=title)
+    plt.tight_layout()
+    file_save_path = os.path.join("graphs" ,filename)
+    plt.savefig(file_save_path)
+    plt.close()
+
+
 def create_hue_data(initial_data, fusion=3):
     hue_data = pd.DataFrame(columns = ["n", "Partie", "temps d'execution"])
     hue_data["n"] = initial_data["num"].tolist() * fusion
@@ -82,11 +110,47 @@ def graph_function(list_values, type):
 
 
 def main():
+    c_values = {}
+    theorique_values = {}
     for sorting_name in sorting_names:
         # reading data
-        c_values = pd.read_csv("{}.csv".format(sorting_names[sorting_name][0]))
-        graph_langage(c_values, sorting_name, "C")
-        graph_function(c_values["num"].tolist(), sorting_name)
+        c_values[sorting_name] = pd.read_csv("{}.csv".format(sorting_names[sorting_name][0]))
+        graph_langage(c_values[sorting_name], sorting_name, "C")
+        graph_function(c_values[sorting_name]["num"].tolist(), sorting_name)
+
+        list_values = c_values[sorting_name]["num"].tolist()
+        theorique_values[sorting_name] = pd.DataFrame(columns = ["num", "worst_case", "best_case"])
+        theorique_values[sorting_name]["num"] = list_values
+        theorique_values[sorting_name]["best_case"] = [best_cases[sorting_name](value) for value in list_values]
+        theorique_values[sorting_name]["worst_case"] = [worst_cases[sorting_name](value) for value in list_values]
+
+
+    # ordred values comparaison graph with C langage
+    title = "Comparaison des Algorithmes (données deja ordonner) langage C"
+    file_name = "comp_ordredTimeC"
+    fusion_graphs("time_ordered", title, file_name, c_values)
+
+    # inverse order values comparaison graph with C langage
+    title = "Comparaison des Algorithmes (données ordre inverse) langage C"
+    file_name = "comp_inverseTimeC"
+    fusion_graphs("time_inverse", title, file_name, c_values)
+
+    # ordred values comparaison graph with C langage
+    title = "Comparaison des Algorithmes (données aleatoires) langage C"
+    file_name = "comp_randomTimeC"
+    fusion_graphs("time_ordered", title, file_name, c_values)
+
+    # constructing dictionary
+
+    # best case comparaison graph
+    title = "Comparaison des Algorithmes meilleur cas (theorique)"
+    file_name = "comp_bestCase"
+    fusion_graphs("best_case", title, file_name, theorique_values, theorique=True)
+
+    # worst case comparaison graph
+    title = "Comparaison des Algorithmes pire cas (theorique)"
+    file_name = "comp_worstCase"
+    fusion_graphs("worst_case", title, file_name, theorique_values, theorique=True)
 
 if __name__ == '__main__':
     main()
