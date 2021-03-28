@@ -24,18 +24,18 @@ sorting_names = {
 
 best_cases = {
     "insertion": lambda x: (6 * x) - 6,
-    "bubbles": lambda x: x,
-    "merge": lambda x: x,
-    "quick": lambda x: x,
-    "heap": lambda x: x * (17 * math.log2(x) - 1),
+    "bubbles": lambda x: (x*x + x - 2) / 2,
+    "merge": lambda x: x * (math.log2(x + 1) - 1),
+    "quick": lambda x: x + math.log2(x) * x,
+    "heap": lambda x: x * (math.log2(x) - 1),
 }
 
 worst_cases = {
     "insertion": lambda x: (x * (x - 1)) / 2,
-    "bubbles": lambda x: x,
-    "merge": lambda x: x,
-    "quick": lambda x: x,
-    "heap": lambda x: (3 * x * (17 * math.log2(x) - 1)) / 2,
+    "bubbles": lambda x: (x*x + x - 2) / 2,
+    "merge": lambda x: 2 * (x/2) * (math.log2((x/2) + 1) - 1) + 2 * x,
+    "quick": lambda x: (x * (x+1)) / 2,
+    "heap": lambda x: (3 * x * (math.log2(x) - 1)) / 2,
 }
 
 
