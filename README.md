@@ -14,4 +14,4 @@ We first implemented the different algorithm then tested their execution time wi
 | n | 6.4*10^4 | 1.28*10^5 | 2.56*10^5 | 5.12*10^5 | 1.024*10^6 | 2.048*10^6 | 5*10^2 | 10^3 | 2*10^3 | 4*10^3 | 8*10^3 | 1.6*10^4 | 3.2*10^4 |
 |---|----------|-----------|-----------|-----------|------------|------------|--------|------|--------|--------|--------|----------|----------|
 
-we then procedded to make plots of the executions time for each technique in python using seaborn and pandas in the file results/graphs.py
+We then proceeded to make plots of the executions time for each technique in python using seaborn and pandas in the file results/graphs.py
